@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/armzerpa/travel-itinerary-generator/internal/validator"
 	"github.com/armzerpa/travel-itinerary-generator/models"
 	"github.com/gin-gonic/gin"
 )
@@ -16,6 +17,14 @@ func GenerateHandler(c *gin.Context) {
 func PostHandler(c *gin.Context) {
 	var req models.Request
 	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	// Validate the request
+	if err := validator.ValidateRequest(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
