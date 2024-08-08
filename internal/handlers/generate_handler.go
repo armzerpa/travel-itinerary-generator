@@ -33,7 +33,7 @@ func PostHandler(c *gin.Context) {
 		return
 	}
 
-	generator := &services.MockItineraryGenerator{}
+	generator := &services.GeminiItineraryGenerator{}
 
 	// Call the generateItinerary method
 	itinerary, err := generator.GenerateItinerary(req.Prompt, req.City, req.NumberOfLines, req.Type)
