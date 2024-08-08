@@ -12,6 +12,10 @@ func ValidateRequest(req *models.Request) error {
 		return gin.Error{Err: errors.New("Prompt is required"), Type: gin.ErrorTypeBind, Meta: nil}
 	}
 
+	if req.City == "" {
+		return gin.Error{Err: errors.New("City is required"), Type: gin.ErrorTypeBind, Meta: nil}
+	}
+
 	if req.NumberOfLines < 1 || req.NumberOfLines > 100 {
 		return gin.Error{Err: errors.New("NumberOfLines must be between 1 and 100"), Type: gin.ErrorTypeBind, Meta: nil}
 	}
